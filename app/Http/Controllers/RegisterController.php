@@ -9,10 +9,16 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    public function show()
+    {
+        return view('Regist');
+    }
+
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => [
                 'required',
@@ -28,7 +34,7 @@ class RegisterController extends Controller
         ], [
             'password.regex' => 'The password must contain at least one number and one special character.',
             'password.min' => 'The password must be at least 8 characters.',
-            'name.unique' => 'This username has already been taken.',
+            'username.unique' => 'This username has already been taken.',
             'email.unique' => 'This email has already been taken.',
         ]);
 
@@ -38,9 +44,9 @@ class RegisterController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+        
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="StyleVerification.css">
+    <link rel="stylesheet" href="css/StyleVerification.css">
 
 </head>
 
@@ -16,12 +16,13 @@
     <main class="form-container">
         
         <div class="header">
-            <img src="Images/Logo.png" alt="Open Arms Logo" class="logo-svg">
+            <img src="{{ asset('assets/images/Logo.svg') }}" alt="Open Arms Logo" class="logo-svg">
             <h1>OPEN ARMS</h1>
         </div>
 
         <h2>Forgot Password</h2>
-        <form action="#" method="POST">
+        <form action="{{ route('password.reset') }}" method="POST">
+            @csrf
             <input type="hidden" name="token" value="{{ $token }}">
             <div class="form-group">
                 <label for="verification-code">Password</label>

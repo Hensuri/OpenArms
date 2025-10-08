@@ -16,15 +16,16 @@
 <body>
     <main class="form-container">
         <div class="header">
-            <img src="Images/Logo.png" alt="Open Arms Logo" class="logo-svg">
+            <img src="{{ asset('assets/images/Logo.svg') }}" alt="Open Arms Logo" class="logo-svg">
             <h1>OPEN ARMS</h1>
         </div>
 
         <h2>Forgot Password</h2>
-        <form action="#" method="POST">
+        <form action="{{ route('password.send-code') }}" method="POST">
+            @csrf
             <div class="form-group">
                 <label for="username">Email / Username</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="identifier">
             </div>
 
             <div class="button-container">

@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\sendCode;
 use App\Models\User;
 use App\Models\PasswordReset;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class ForgotPasswordController extends Controller
 {
@@ -44,9 +48,11 @@ class ForgotPasswordController extends Controller
             ]
         );
 
-        Mail::to($email)->send(new sendCode($user->username, $code));
+        Mail::to($identifier)->queue(new sendCode($user->username, $code));
 
-        return redirect()->route('password.enter-code', ['identifier' => $user->email]);
+        session(['identifier' => $user->email]);
+
+        return redirect()->route('password.enter-code');
     }
     
     public function showEnterCode()
@@ -57,35 +63,42 @@ class ForgotPasswordController extends Controller
     public function verifyCode(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'code' => 'required|digits:6',
+            'identifier' => 'required|email',
+            'verification-code' => 'required|digits:6',
         ]);
 
-        $email = $request->input('email');
-        $code = $request->input('code');
+        $email = $request->input('identifier');
+        $code = $request->input('verification-code');
+
+        // dd("checking database");
 
         $reset = PasswordReset::where('email', $email)
             ->where('used', false)
             ->orderBy('created_at', 'desc')
             ->first();
 
+        // dd("before validation");
         if (! $reset) {
+            dd('Kode tidak valid atau sudah dipakai.');
             return back()->with('error', 'Kode tidak valid atau sudah dipakai.');
-
         }
 
         if (Carbon::now()->greaterThan($reset->expires_at)) {
+            
+            dd('Kode sudah kadaluarsa. Silakan minta kode baru.');
             return back()->with('error', 'Kode sudah kadaluarsa. Silakan minta kode baru.');
         }
 
         if (! Hash::check($code, $reset->code_hash)) {
+            
+            dd('Kode salah.');
             return back()->with('error', 'Kode salah.');
         }
-
+        // dd("before making token");
         $resetToken = (string) Str::uuid();
         $reset->reset_token = $resetToken;
         $reset->save();
-
+        // dd("before redirect");
         return redirect()->route('password.reset.form', ['token' => $resetToken]);
     }
 
@@ -135,7 +148,7 @@ class ForgotPasswordController extends Controller
         $reset->save();
 
 
-        // return redirect()->route('login')->with('status', 'Password berhasil diubah. Silakan login.');
+        return redirect()->route('login')->with('status', 'Password berhasil diubah. Silakan login.');
     }
 
 }

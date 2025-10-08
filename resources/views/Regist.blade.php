@@ -16,7 +16,7 @@
 <body>
     <main class="registration-container">
         <div class="header">
-            <img src="storage/Images/Logo.svg" alt="Open Arms Logo" class="logo-svg">
+            <img src="{{ asset('assets/images/Logo.svg') }}" alt="Open Arms Logo" class="logo-svg">
             <h1>OPEN ARMS</h1>
         </div>
 
@@ -34,8 +34,8 @@
             @csrf
             <div class="form-group">
                 <label for="name">Username</label>
-                <input type="text" id="name" name="name" value="{{ old('name') }}" required>
-                @error('name')
+                <input type="text" id="username" name="username" value="{{ old('username') }}" required>
+                @error('username')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
             </div>

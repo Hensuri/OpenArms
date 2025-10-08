@@ -16,7 +16,7 @@
 <body>
     <main class="login-container">
         <div class="header">
-            <img src="storage/Images/Logo.svg" alt="Open Arms Logo" class="logo-svg">
+            <img src="{{ asset('assets/images/Logo.svg') }}" alt="Open Arms Logo" class="logo-svg">
             <h1>OPEN ARMS</h1>
         </div>
         <h2>Sign In</h2>
