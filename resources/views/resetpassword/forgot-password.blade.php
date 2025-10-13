@@ -1,30 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Arms - Registration</title>
+    <title>Open Arms - Forgot Password</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="StyleVerification.css">
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/StyleForgotPWD.css">
 </head>
 
 <body>
     <main class="form-container">
-        
         <div class="header">
-            <img src="Images/Logo.png" alt="Open Arms Logo" class="logo-svg">
+            <img src="{{ asset('assets/images/Logo.svg') }}" alt="Open Arms Logo" class="logo-svg">
             <h1>OPEN ARMS</h1>
         </div>
 
         <h2>Forgot Password</h2>
-        <form action="#" method="POST">
+        <form action="{{ route('password.send-code') }}" method="POST">
+            @csrf
             <div class="form-group">
-                <label for="verification-code">Verification Code</label>
-                <input type="text" id="verification-code" name="verification-code">
+                <label for="username">Email / Username</label>
+                <input type="text" id="username" name="identifier">
             </div>
 
             <div class="button-container">
@@ -33,10 +35,9 @@
         </form>
 
         <div class="bottom-link">
-            <a href="#">Resend Code</a>
+            Remember Your Account? <a href="/login">Click Here</a>
         </div>
     </main>
 
 </body>
-
 </html>

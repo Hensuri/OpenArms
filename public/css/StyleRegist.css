@@ -1,23 +1,64 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #fff;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: #fff;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        box-sizing: border-box;
 }
-
 .header {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2.5rem;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    text-align: left;
+}
+
+.alert {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.375rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.alert-danger {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-danger ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    list-style-type: disc;
+    text-align: left;
+}
+
+.alert-danger ul li {
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.alert-danger ul li {
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.alert-danger ul li:last-child {
+    margin-bottom: 0;
 }
 
 .header .logo-svg {
@@ -35,18 +76,13 @@ body {
     white-space: nowrap;
 }
 
-.email {
-    margin-top: -1rem;
-    margin-bottom: -1rem;
-}
-
-.form-container {
+.registration-container {
     width: 100%;
     max-width: 24rem;
     padding: 1rem;
 }
 
-.form-container h2 {
+.registration-container h2 {
     font-size: 1.875rem;
     font-weight: 500;
     margin-bottom: 2.5rem;
@@ -105,89 +141,22 @@ button {
 }
 
 button:hover {
-    background-color: #58458f;
+    background-color: #6750A4;
 }
 
-.bottom-link {
+.signin-link {
     margin-top: 2rem;
     font-size: 0.875rem;
     color: #6B7280;
     text-align: left;
 }
 
-.bottom-link a {
+.signin-link a {
     color: #3B82F6;
     text-decoration: none;
     font-weight: 500;
 }
 
-.bottom-link a:hover {
+.signin-link a:hover {
     text-decoration: underline;
-}
-
-.link-button {
-    margin-top: 1rem; /* Tambahkan jarak atas */
-    text-align: left;
-    margin-left: 0.5rem;
-    display: block;
-}
-
-.link-button button {
-    background: none;
-    border: none;
-    color: #3B82F6;
-    text-decoration: underline;
-    cursor: pointer;
-    padding: 0;
-    font: inherit;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.link-button button:hover {
-    color: #0056b3;
-    text-decoration: underline;
-}
-
-.link-button button:disabled {
-    color: gray;
-    text-decoration: none;
-}
-
-.change:visited{
-    color: #007bff;
-}
-
-.alert {
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin: 15px 0;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-.alert-danger {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    background-color: #fde8e8;
-    border: 1px solid #f5c2c7;
-    color: #b91c1c; /* merah tua */
-}
-
-.text {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.text p {
-    margin-bottom: 0.25rem;
-}
-
-.text .email {
-    font-style: italic;
-    color: #333;
 }
