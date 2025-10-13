@@ -10,6 +10,7 @@ use App\Models\PasswordReset;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 
 class ForgotPasswordController extends Controller
@@ -70,35 +71,28 @@ class ForgotPasswordController extends Controller
         $email = $request->input('identifier');
         $code = $request->input('verification-code');
 
-        // dd("checking database");
-
         $reset = PasswordReset::where('email', $email)
             ->where('used', false)
             ->orderBy('created_at', 'desc')
             ->first();
 
-        // dd("before validation");
         if (! $reset) {
-            dd('Kode tidak valid atau sudah dipakai.');
             return back()->with('error', 'Kode tidak valid atau sudah dipakai.');
         }
 
         if (Carbon::now()->greaterThan($reset->expires_at)) {
             
-            dd('Kode sudah kadaluarsa. Silakan minta kode baru.');
             return back()->with('error', 'Kode sudah kadaluarsa. Silakan minta kode baru.');
         }
 
         if (! Hash::check($code, $reset->code_hash)) {
-            
-            dd('Kode salah.');
             return back()->with('error', 'Kode salah.');
         }
-        // dd("before making token");
+
         $resetToken = (string) Str::uuid();
         $reset->reset_token = $resetToken;
         $reset->save();
-        // dd("before redirect");
+
         return redirect()->route('password.reset.form', ['token' => $resetToken]);
     }
 
@@ -118,10 +112,29 @@ class ForgotPasswordController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $request->validate([
-            'token' => 'required|string',
-            'password' => 'required|string|min:8|confirmed',
+        $validator = Validator::make($request->all(), [
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                'regex:/[0-9]/',
+                'regex:/[A-Z]/',
+                'regex:/[a-z]/',
+                'regex:/[^A-Za-z0-9]/',
+                'not_regex:/(.)\1{2,}/',
+            ],
+        ], [
+            'password.regex' => 'The password must contain at least one number and one special character.',
+            'password.min' => 'The password must be at least 8 characters.',
         ]);
+        
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $token = $request->input('token');
         $password = $request->input('password');
@@ -133,20 +146,20 @@ class ForgotPasswordController extends Controller
         if (! $reset || Carbon::now()->greaterThan($reset->expires_at)) {
             return back()->with('error', 'Token tidak valid atau sudah kadaluarsa.');
         }
+        
 
         $user = User::where('email', $reset->email)->first();
 
         if (! $user) {
             return back()->with('error', 'Akun tidak ditemukan.');
         }
-
+  
         $user->password = Hash::make($password);
         $user->save();
 
         $reset->used = true;
         $reset->reset_token = null;
         $reset->save();
-
 
         return redirect()->route('login')->with('status', 'Password berhasil diubah. Silakan login.');
     }

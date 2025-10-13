@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/StyleVerification.css">
+    <link rel="stylesheet" href="{{ asset('css/StyleVerification.css') }}">
 
 </head>
 
@@ -20,7 +20,18 @@
             <h1>OPEN ARMS</h1>
         </div>
 
-        <h2>Forgot Password</h2>
+        <h2>Verify Your Code</h2>
+        <div class="text">
+            <p>A Verification Code has been send to</p>
+            <span class="email">{{ session('identifier') }}</span>
+            <a href="/forgot-password">Change<a>
+        </div>
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('password.verify-code') }}" method="POST">
             @csrf
             <input type="hidden" name="identifier" value="{{ session('identifier') }}">
@@ -34,11 +45,39 @@
             </div>
         </form>
 
-        <div class="bottom-link">
-            <a href="#">Resend Code</a>
-        </div>
-    </main>
 
+        <form action="{{ route('password.send-code') }}" method="POST"class="link-button">
+            @csrf
+            <input type="hidden" name="identifier" value="{{ session('identifier') }}">
+            <button type="submit" id="sendCodeBtn">Send Code</button>
+        </form>
+    </main>
 </body>
 
 </html>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('sendCodeBtn');
+    const cooldownTime = 10; // detik
+    startCooldown(cooldownTime);
+
+    function startCooldown(seconds) {
+        let remaining = seconds;
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = `Wait ${remaining}s`;
+
+        const timer = setInterval(() => {
+            remaining--;
+            button.textContent = `Wait ${remaining}s`;
+
+            if (remaining <= 0) {
+                clearInterval(timer);
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        }, 1000);
+    }
+});
+</script>

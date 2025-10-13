@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/StyleVerification.css">
+    <link rel="stylesheet" href="{{ asset('css/StyleEnterPWD.css') }}">
 
 </head>
 
@@ -20,30 +20,37 @@
             <h1>OPEN ARMS</h1>
         </div>
 
-        <h2>Forgot Password</h2>
+        <h2>New Password</h2>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('password.reset') }}" method="POST">
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
             <div class="form-group">
-                <label for="verification-code">Password</label>
-                <input type="text" id="verification-code" name="password">
+                <label for="password">Enter Your New Password </label>
+                <input type="password" id="password" name="password" required>
             </div>
 
             <div class="form-group">
-                <label for="verification-code">Re-enter Password</label>
-                <input type="text" id="verification-code" name="password_confirmation">
+                <label for="password_confirmation">Re-Enter Your New Password</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" required>
             </div>
+            @error('password')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
 
             <div class="button-container">
                 <button type="submit">Send</button>
             </div>
         </form>
-
-        <div class="bottom-link">
-            <a href="#">Resend Code</a>
-        </div>
     </main>
-
 </body>
 
 </html>

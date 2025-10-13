@@ -34,7 +34,7 @@
         </form>
 
         <div class="bottom-link">
-            Remember Your Account? <a href="index.html">Click Here</a>
+            Remember Your Account? <a href="/login">Click Here</a>
         </div>
     </main>
 

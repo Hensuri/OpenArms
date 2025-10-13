@@ -7,14 +7,14 @@ use App\Http\Controllers\RegisterController;
 
 //temporary root page
 Route::get('/', function () {
-    return view('Login');
+    return view('landingpage');
 });
 
-Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/register', [RegisterController::class, 'show'])->name('register');
+Route::get('/register', [RegisterController::class, 'show'])->middleware('guest')->name('register');
 
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
