@@ -30,11 +30,15 @@ body {
     color: #dc3545;
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
+    margin-bottom: 1rem;
 }
 
 .alert-danger ul {
     margin: 0;
-    padding-left: 1.25rem;
+    padding-left: 1.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
     list-style-type: disc;
     text-align: left;
 }
