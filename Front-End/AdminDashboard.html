@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="AdminDashboard.css">
+</head>
+
+<body>
+
+    <nav class="sidebar">
+        <div class="sidebar-icon">
+            <img src="Images/Logo2.png" alt="Site Logo">
+        </div>
+
+        <div class="sidebar-icon active">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z" />
+            </svg>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <header class="header">
+            <h1>Admin Dashboard</h1>
+        </header>
+
+        <div class="stats-cards">
+            <div class="stat-card total">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                    </svg>
+                </div>
+                <div class="info">
+                    <h3>Total Applicants</h3>
+                    <p>1</p>
+                </div>
+            </div>
+            <div class="stat-card checking">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+                    </svg>
+                </div>
+                <div class="info">
+                    <h3>In Checking</h3>
+                    <p>1</p>
+                </div>
+            </div>
+            <div class="stat-card accepted">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                </div>
+                <div class="info">
+                    <h3>Accepted</h3>
+                    <p>0</p>
+                </div>
+            </div>
+            <div class="stat-card rejected">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </div>
+                <div class="info">
+                    <h3>Rejected</h3>
+                    <p>0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <div class="table-controls">
+                <div class="search-filter">
+                    <input type="text" placeholder="Search">
+                    <button class="filter-button" onclick="toggleDropdown()">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20"
+                            fill="currentColor">
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
+                        </svg>
+                        Filter
+                    </button>
+                    <div class="filter-dropdown" id="filterDropdown">
+                        <a href="#">Latest</a>
+                        <a href="#">Earliest</a>
+                        <a href="#">Pending</a>
+                        <a href="#">Rejected</a>
+                        <a href="#">Accepted</a>
+                        <a href="#">Alphabetical</a>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <button>&lt;</button>
+                    <span>Page 1 of 1</span>
+                    <button>&gt;</button>
+                </div>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Created On</th>
+                        <th>Application ID</th>
+                        <th>Full Name</th>
+                        <th>Donation Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>17/10/2025</td>
+                        <td>28911</td>
+                        <td>Algi Algifary</td>
+                        <td>Kita Peduli Darrius Se - Indonesia</td>
+                        <td><span class="status-tag in-checking">In Checking</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="detailed-view">
+            <h2>Detailed View</h2>
+            <div class="detail-card">
+                <div class="image-wrapper">
+                    <img src="https://via.placeholder.com/200x150/d7d7d7/000000?text=Banner" alt="Donation Banner">
+                </div>
+                <div class="info">
+                    <div>
+                        <div class="detail-item">
+                            <strong>Donation Name :</strong>
+                            <span>Kita Peduli Darrius Se - Indonesia</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Donation target :</strong>
+                            <span>Rp. 500.000.000</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Description :</strong>
+                            <span>We are a group specializing in helping all darrius in the world by doing so we can
+                                facilitate every darrius to be a better darrius</span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Category :</strong>
+                            <span>Health and well being</span>
+                        </div>
+                    </div>
+                    <div class="detail-actions">
+                        <button class="approve-button">Approve</button>
+                        <button class="reject-button">Reject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("filterDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.filter-button, .filter-button *')) {
+                var dropdowns = document.getElementsByClassName("filter-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
