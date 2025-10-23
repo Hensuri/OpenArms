@@ -29,6 +29,13 @@ Route::post('/verify-code', [ForgotPasswordController::class, 'verifyCode'])->na
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.form');
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset');
 
+use App\Http\Controllers\AccountController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/edit-account', [AccountController::class, 'edit'])->name('account.edit');
+    Route::post('/edit-account', [AccountController::class, 'update'])->name('account.update');
+});
+
 Route::get('/my-donation', [CreateDonationController::class, 'index'])->name('myDonationList');
 Route::get('/create-donation', [CreateDonationController::class, 'show'])->name('createDonation');
 Route::post('/create-donation', [CreateDonationController::class, 'store'])->name('addDonation');
