@@ -14,6 +14,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'profile_picture',
         'is_admin',
     ];
 
@@ -30,7 +31,6 @@ class User extends Authenticatable
         ];
     }
 
-    // Relasi ke Donation
     public function donations()
     {
         return $this->hasMany(Donation::class, 'creator_id');
