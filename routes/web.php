@@ -13,6 +13,12 @@ Route::get('/', function () {
     return view('landingpage');
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('adminDonation');
+    Route::post('/admin/donation/{id}/approve', [AdminDashboardController::class, 'approve']);
+    Route::post('/admin/donation/{id}/reject', [AdminDashboardController::class, 'reject']);
+});
+
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -41,7 +47,3 @@ Route::get('/create-donation', [CreateDonationController::class, 'show'])->name(
 Route::post('/create-donation', [CreateDonationController::class, 'store'])->name('addDonation');
 
 Route::get('/donations', [DonationsController::class, 'index'])->name('Donations');
-
-Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('adminDonation');
-Route::post('/admin/donation/{id}/approve', [AdminDashboardController::class, 'approve']);
-Route::post('/admin/donation/{id}/reject', [AdminDashboardController::class, 'reject']);
