@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\CreateDonationController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\DonationsController;
+use App\Http\Controllers\AccountController;
 
 //temporary root page
 Route::get('/', function () {
@@ -34,8 +35,6 @@ Route::post('/verify-code', [ForgotPasswordController::class, 'verifyCode'])->na
 
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.form');
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset');
-
-use App\Http\Controllers\AccountController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/edit-account', [AccountController::class, 'edit'])->name('account.edit');

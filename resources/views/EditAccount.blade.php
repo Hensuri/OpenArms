@@ -10,22 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/StyleEditAccount.css') }}">
     <style>
-        .error-message, .alert-danger {
-            color: #b71c1c; /* red */
-            font-size: 0.9rem;
-        }
-        .profile-picture img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-        }
-        .profile-picture svg {
-            width: 100px;
-            height: 100px;
-            display: block;
-        }
+
     </style>
 </head>
 
@@ -72,7 +57,7 @@
                 @endif
             </div>
             @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+                <div class="alert success">{{ session('success') }}</div>
             @endif
 
             <form class="edit-form" method="POST" action="{{ route('account.update') }}" enctype="multipart/form-data">
