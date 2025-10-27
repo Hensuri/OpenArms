@@ -32,10 +32,11 @@ class RegisterController extends Controller
                 'not_regex:/(.)\1{2,}/',
             ],
         ], [
-            'password.regex' => 'The password must contain at least one number and one special character.',
+            'password.regex' => 'The password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
             'password.min' => 'The password must be at least 8 characters.',
+            'password.not_regex' => 'The password must not contain three repeating characters in a row.',
             'username.unique' => 'This username has already been taken.',
-            'email.unique' => 'This email has already been taken.',
+            'email.unique'  => 'This email has already been taken.',
         ]);
 
         if ($validator->fails()) {
