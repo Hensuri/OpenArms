@@ -21,7 +21,7 @@ class TransactionSeeder extends Seeder
                 'order_id' => 'TRX-' . now()->format('YmdHis') . '-' . Str::upper(Str::random(6)),
                 'user_id' => rand(1, 3),
                 'donation_id' => rand(1, 8),
-                'gross_amount' => number_format(rand(10000, 1000000) + (rand(0, 99) / 100), 2, '.', ''), // contoh 532451.27
+                'gross_amount' => floor(rand(10000, 1000000) / 1000) * 1000,
                 'is_anon' => (bool) rand(0, 1),
                 'created_at' => now(),
                 'updated_at' => now(),

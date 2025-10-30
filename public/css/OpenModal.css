@@ -1,0 +1,160 @@
+/* Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(60, 0, 80, 0.4);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Modal Container */
+.donation-modal, .donation-form-modal {
+    background: linear-gradient(180deg, #3c0070 0%, #1e0035 100%);
+    color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    animation: popIn 0.25s ease-out;
+}
+
+/* Header Image */
+.modal-header img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+/* Body */
+.modal-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.modal-body h2 {
+    font-size: 22px;
+    margin: 10px 0 5px;
+}
+
+.modal-body p {
+    font-size: 14px;
+    color: #ddd;
+    margin: 10px 0 15px;
+    line-height: 1.5;
+}
+
+/* Category Tag */
+.category-tag {
+    display: inline-block;
+    background: #ff4081;
+    color: #fff;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+/* Progress Info */
+.progress-info {
+    font-size: 13px;
+    color: #ccc;
+    margin-bottom: 6px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00e676, #4caf50);
+    transition: width 0.3s ease;
+}
+
+.progress-percent {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 6px;
+}
+
+/* Donate Button */
+.donate-btn, .submit-btn {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background 0.2s;
+}
+
+.donate-btn:hover , .submit-btn:hover{
+    background: rgba(255,255,255,0.3);
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.donation-form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.checkbox label {
+    margin-left: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+

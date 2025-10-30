@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('donation_id')->nullable()->constrained('donations')->nullOnDelete();
             $table->string('status')->default('pending');
-            $table->decimal('gross_amount', 15, 2);
+            $table->bigInteger('gross_amount');
             $table->boolean('is_anon')->default(false);
             $table->timestamps();
         });

@@ -13,10 +13,10 @@ class TransactionLog extends Model
     protected $table = 'transaction_logs';
 
     protected $fillable = [
-        'transaction_id',
+        'order_id',
         'user_id',
         'donation_id',
-        'amount',
+        'gross_amount',
         'status',
         'is_anon',
     ];

@@ -20,6 +20,7 @@ class DonationSeeder extends Seeder
                 'description' => 'Donasi untuk membantu korban banjir di wilayah Jakarta dan sekitarnya.',
                 'category' => 'Humanity',
                 'creator_id' => 1,
+                'status' => 'approved',
             ],
             [
                 'name' => 'Pendidikan untuk Anak Papua',
@@ -27,6 +28,7 @@ class DonationSeeder extends Seeder
                 'description' => 'Membantu menyediakan fasilitas belajar untuk anak-anak di Papua.',
                 'category' => 'Education',
                 'creator_id' => 2,
+                'status' => 'approved',
             ],
             [
                 'name' => 'Reboisasi Gunung Ciremai',
@@ -34,6 +36,7 @@ class DonationSeeder extends Seeder
                 'description' => 'Gerakan penghijauan kembali di kawasan Gunung Ciremai.',
                 'category' => 'Environment',
                 'creator_id' => 3,
+                'status' => 'approved',
             ],
             [
                 'name' => 'Pembangunan Sekolah Terpencil di NTT',
@@ -41,6 +44,7 @@ class DonationSeeder extends Seeder
                 'description' => 'Pembangunan ruang kelas dan fasilitas belajar untuk anak-anak di daerah terpencil NTT.',
                 'category' => 'Education',
                 'creator_id' => 1,
+                'status' => 'approved',
             ],
             [
                 'name' => 'Donasi Kemanusiaan Palestina',
@@ -48,6 +52,7 @@ class DonationSeeder extends Seeder
                 'description' => 'Mendukung bantuan medis dan logistik untuk masyarakat Palestina.',
                 'category' => 'Humanity',
                 'creator_id' => 2,
+                'status' => 'approved',
             ],
             [
                 'name' => 'Bersih-Bersih Pantai Bali',
@@ -55,6 +60,7 @@ class DonationSeeder extends Seeder
                 'description' => 'Kegiatan membersihkan sampah plastik di pantai Bali untuk menjaga ekosistem laut.',
                 'category' => 'Environment',
                 'creator_id' => 3,
+                'status' => 'approved',
             ],
             [
                 'name' => 'Beasiswa Mahasiswa Kurang Mampu',
@@ -62,6 +68,7 @@ class DonationSeeder extends Seeder
                 'description' => 'Memberikan beasiswa kepada mahasiswa berprestasi dari keluarga tidak mampu.',
                 'category' => 'Education',
                 'creator_id' => 1,
+                'status' => 'approved',
             ],
             [
                 'name' => 'Bantuan Korban Gempa Cianjur',
@@ -69,6 +76,7 @@ class DonationSeeder extends Seeder
                 'description' => 'Membantu korban gempa Cianjur dengan kebutuhan dasar dan pembangunan rumah.',
                 'category' => 'Humanity',
                 'creator_id' => 2,
+                'status' => 'approved',
             ],
         ];
 
