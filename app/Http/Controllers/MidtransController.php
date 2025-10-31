@@ -41,19 +41,26 @@ class MidtransController extends Controller
                     'name' => $donation->name,
                 ],
             ],
-            'customer_details' => [
-                'first_name' => $donator->username,
-                'email' => $donator->email ?? 'unknown@example.com',
-            ],
         ];
 
         $data = [
             'order_id' => $order_id,
-            'user_id' => $donator->id,
             'donation_id' => $donation->id,
             'gross_amount' => $request->amount,
             'is_anon' => $request->isAnonymous,
         ];
+        Log::info($donator);
+
+        if ($donator) {
+            $data['user_id'] = $donator->id;
+            $params['customer_details'] = [
+                'first_name' => $donator->username,
+                'email' => $donator->email,
+            ];
+        }
+        else{
+            $data['is_anon'] = 1;
+        }
 
         try {
             // Log::info($params);

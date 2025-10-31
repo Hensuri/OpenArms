@@ -67,7 +67,7 @@ class Donations extends Component
 
         $midtransController = new MidtransController;
         $response = $midtransController->create($request);
-        // $data = $response->getData(true);
+
         log::info($response); 
 
         if (!empty($response['snap_token'])) {
