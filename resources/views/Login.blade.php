@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@300&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/StyleLogin.css">
+    <link rel="stylesheet" href="{{ asset('css/StyleLogin.css') }}">
 </head>
 
 <body>

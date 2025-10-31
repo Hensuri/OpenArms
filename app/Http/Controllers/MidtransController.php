@@ -28,14 +28,23 @@ class MidtransController extends Controller
         $donation = Donation::where('id', $request->donation_id)->first();
         $donator = User::where('id', $request->donator)->first();
 
-        $params = ['transaction_details' => [
+        $params = [
+            'transaction_details' => [
                 'order_id' => $order_id,
                 'gross_amount' => $request->amount,
             ],
-            'customer_details' => [
-                'username' => $donator->username,
+            'item_details' => [
+                [
+                    'id' => $donation->id,
+                    'price' => $request->amount,
+                    'quantity' => 1,
+                    'name' => $donation->name,
+                ],
             ],
-            'Donation_Name' => $donation->name
+            'customer_details' => [
+                'first_name' => $donator->username,
+                'email' => $donator->email ?? 'unknown@example.com',
+            ],
         ];
 
         $data = [
@@ -47,7 +56,7 @@ class MidtransController extends Controller
         ];
 
         try {
-            Log::info($params);
+            // Log::info($params);
             $snapToken = Snap::getSnapToken($params);
             TransactionLog::create($data);
             return [
@@ -55,10 +64,51 @@ class MidtransController extends Controller
             ];
         } catch (\Exception $e) {
             
-            Log::error('Midtrans Error: ' . $e->getMessage());
+            // Log::error('Midtrans Error: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
 
-        
+    public function callback(Request $request)
+    {
+        Log::info('Midtrans callback received:', $request->all());
+
+        $serverKey = env('MIDTRANS_SERVER_KEY');
+
+        $signatureKey = hash('sha512',
+            $request->order_id . 
+            $request->status_code . 
+            $request->gross_amount . 
+            $serverKey
+        );
+
+        if ($signatureKey !== $request->signature_key) {
+            Log::info('Midtrans callback signature key invalid');
+            return response()->json(['message' => 'Invalid signature'], 403);
+        }
+
+        $transaction = TransactionLog::where('order_id', $request->order_id)->first();
+
+        if (!$transaction) {
+            Log::info('There\'s no transaction on here');
+            return response()->json(['message' => 'Transaction not found'], 404);
+        }
+
+        switch ($request->transaction_status) {
+            case 'capture':
+            case 'settlement':
+                $transaction->status = 'success';
+                break;
+            case 'pending':
+                $transaction->status = 'pending';
+                break;
+            case 'deny':
+            case 'expire':
+            case 'cancel':
+                $transaction->status = 'failed';
+                break;
+        }
+        $transaction->save();
+        return response()->json(['message' => 'Callback processed']);
     }
 }

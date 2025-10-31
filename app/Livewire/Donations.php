@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\MidtransController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class Donations extends Component
 {
@@ -67,6 +68,7 @@ class Donations extends Component
         $midtransController = new MidtransController;
         $response = $midtransController->create($request);
         // $data = $response->getData(true);
+        log::info($response); 
 
         if (!empty($response['snap_token'])) {
             $this->dispatch('openSnap', snap_token: $response['snap_token']);
