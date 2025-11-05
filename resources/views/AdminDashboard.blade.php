@@ -13,136 +13,124 @@
 </head>
 
 <body>
-    <nav class="sidebar">
-        <a href="{{ route('Donation') }}">
-            <div class="sidebar-icon">
-                <img src="/assets/images/Logo_white.svg" alt="Site Logo">
-            </div>
-        </a>
-
-        <div class="sidebar-icon active">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                    d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z" />
-            </svg>
-        </div>
-    </nav>
+    
+    <x-sidebar />
 
     <div class="main-content">
-        <header class="header">
-            <h1>Admin Dashboard</h1>
-        </header>
+        <div class="scroll-area">
+            <header class="header">
+                <h1>Admin Dashboard</h1>
+            </header>
 
-        <div class="stats-cards">
-            <div class="stat-card total">
-                <div class="icon-wrapper">
-                    <!-- SVG -->
-                </div>
-                <div class="info">
-                    <h3>Total Applicants</h3>
-                    <p>{{ $totalApplicants }}</p>
-                </div>
-            </div>
-
-            <div class="stat-card checking">
-                <div class="icon-wrapper">
-                    <!-- SVG -->
-                </div>
-                <div class="info">
-                    <h3>In Checking</h3>
-                    <p>{{ $inChecking }}</p>
-                </div>
-            </div>
-
-            <div class="stat-card accepted">
-                <div class="icon-wrapper">
-                    <!-- SVG -->
-                </div>
-                <div class="info">
-                    <h3>Accepted</h3>
-                    <p>{{ $accepted }}</p>
-                </div>
-            </div>
-
-            <div class="stat-card rejected">
-                <div class="icon-wrapper">
-                    <!-- SVG -->
-                </div>
-                <div class="info">
-                    <h3>Rejected</h3>
-                    <p>{{ $rejected }}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="table-section">
-            <div class="table-controls">
-                <div class="search-filter">
-                    <input type="text" placeholder="Search">
-                    <button class="filter-button" onclick="toggleDropdown()">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20"
-                            fill="currentColor">
-                            <path d="M0 0h24v24H0V0z" fill="none" />
-                            <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
-                        </svg>
-                        Filter
-                    </button>
-                    <div class="filter-dropdown" id="filterDropdown">
-                        <a href="#">Latest</a>
-                        <a href="#">Earliest</a>
-                        <a href="#">Pending</a>
-                        <a href="#">Rejected</a>
-                        <a href="#">Accepted</a>
-                        <a href="#">Alphabetical</a>
+            <div class="stats-cards">
+                <div class="stat-card total">
+                    <div class="icon-wrapper">
+                        <!-- SVG -->
+                    </div>
+                    <div class="info">
+                        <h3>Total Applicants</h3>
+                        <p>{{ $totalApplicants }}</p>
                     </div>
                 </div>
-                <div class="pagination">
-                    <button>&lt;</button>
-                    <span>Page 1 of 1</span>
-                    <button>&gt;</button>
+
+                <div class="stat-card checking">
+                    <div class="icon-wrapper">
+                        <!-- SVG -->
+                    </div>
+                    <div class="info">
+                        <h3>In Checking</h3>
+                        <p>{{ $inChecking }}</p>
+                    </div>
+                </div>
+
+                <div class="stat-card accepted">
+                    <div class="icon-wrapper">
+                        <!-- SVG -->
+                    </div>
+                    <div class="info">
+                        <h3>Accepted</h3>
+                        <p>{{ $accepted }}</p>
+                    </div>
+                </div>
+
+                <div class="stat-card rejected">
+                    <div class="icon-wrapper">
+                        <!-- SVG -->
+                    </div>
+                    <div class="info">
+                        <h3>Rejected</h3>
+                        <p>{{ $rejected }}</p>
+                    </div>
                 </div>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Created On</th>
-                        <th>Application ID</th>
-                        <th>Full Name</th>
-                        <th>Donation Name</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($donations as $donation)
-                        <tr class="donation-row"
-                            data-id="{{ $donation->id }}"
-                            data-name="{{ $donation->name }}"
-                            data-description="{{ $donation->description }}"
-                            data-category="{{ $donation->category }}"
-                            data-target="{{ $donation->target_amount }}"
-                            data-status="{{ $donation->status }}"
-                            data-image="{{ asset('storage/' . $donation->cover_image) }}">
-                            
-                            <td>{{ $donation->created_at->format('d/m/Y') }}</td>
-                            <td>{{ $donation->id }}</td>
-                            <td>{{ $donation->name }}</td>
-                            <td>{{ Str::limit($donation->description, 50) }}</td>
-                            <td>
-                                @if($donation->status === 'pending')
-                                    <span class="status-tag in-checking">In Checking</span>
-                                @elseif($donation->status === 'approved')
-                                    <span class="status-tag approved">Approved</span>
-                                @else
-                                    <span class="status-tag rejected">Rejected</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
 
-        <div class="detailed-view" id="detailedView" style="display:none;">
+            <div class="table-section">
+                <div class="table-controls">
+                    <div class="search-filter">
+                        <input type="text" placeholder="Search">
+                        <button class="filter-button" onclick="toggleDropdown()">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20"
+                                fill="currentColor">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
+                            </svg>
+                            Filter
+                        </button>
+                        <div class="filter-dropdown" id="filterDropdown">
+                            <a href="#">Latest</a>
+                            <a href="#">Earliest</a>
+                            <a href="#">Pending</a>
+                            <a href="#">Rejected</a>
+                            <a href="#">Accepted</a>
+                            <a href="#">Alphabetical</a>
+                        </div>
+                    </div>
+                    <div class="pagination">
+                        <button>&lt;</button>
+                        <span>Page 1 of 1</span>
+                        <button>&gt;</button>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Created On</th>
+                            <th>Application ID</th>
+                            <th>Full Name</th>
+                            <th>Donation Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($donations as $donation)
+                            <tr class="donation-row"
+                                data-id="{{ $donation->id }}"
+                                data-name="{{ $donation->name }}"
+                                data-description="{{ $donation->description }}"
+                                data-category="{{ $donation->category }}"
+                                data-target="{{ $donation->target_amount }}"
+                                data-status="{{ $donation->status }}"
+                                data-image="{{ asset('storage/' . $donation->cover_image) }}">
+                                
+                                <td>{{ $donation->created_at->format('d/m/Y') }}</td>
+                                <td>{{ $donation->id }}</td>
+                                <td>{{ $donation->name }}</td>
+                                <td>{{ Str::limit($donation->description, 50) }}</td>
+                                <td>
+                                    @if($donation->status === 'pending')
+                                        <span class="status-tag in-checking">In Checking</span>
+                                    @elseif($donation->status === 'approved')
+                                        <span class="status-tag approved">Approved</span>
+                                    @else
+                                        <span class="status-tag rejected">Rejected</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="detailed-view" id="detailedView" style="display:none;">
             <h2>Detailed View</h2>
             <div class="detail-card">
                 <div class="image-wrapper">
@@ -182,6 +170,10 @@
                 </div>
             </div>
         </div>
+        </div>
+       
+
+        
 
     </div>
 

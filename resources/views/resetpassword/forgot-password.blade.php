@@ -11,7 +11,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@300&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/StyleForgotPWD.css">
+    <link rel="stylesheet" href="{{ asset('css/StyleForgotPWD.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/Logo_white.svg') }}">
 </head>
 
 <body>
@@ -35,7 +36,7 @@
         </form>
 
         <div class="bottom-link">
-            Remember Your Account? <a href="/login">Click Here</a>
+            Remember Your Account? <a href="{{ route('login') }}">Click Here</a>
         </div>
     </main>
 

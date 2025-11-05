@@ -32,6 +32,7 @@ class Donations extends Component
     {
         $this->selectedDonation = Donation::with('transactionLogs.user')->find($id);
         $this->transactions = $this->selectedDonation->transactionLogs()
+        ->where('status', 'success')
         ->latest()
         ->take(10)
         ->get();
@@ -88,6 +89,7 @@ class Donations extends Component
     {
         $this->selectedDonation = Donation::with('transactionLogs.user')->find($id);
         $this->transactions = $this->selectedDonation->transactionLogs()
+        ->where('status', 'success')
         ->latest()
         ->take(10)
         ->get();

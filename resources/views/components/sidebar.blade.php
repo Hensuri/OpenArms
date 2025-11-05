@@ -20,6 +20,16 @@
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
         </svg>
     </a>
+    
+    @can('admin')
+        <a href="{{ route('adminDonation') }}" class="sidebar-icon {{ request()->routeIs('adminDonation') ? 'active' : '' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z" />
+            </svg>
+        </a>
+    @endcan
+
     @auth
         <form action="{{ route('logout') }}" method="POST">
             @csrf
@@ -30,5 +40,4 @@
             </button>
         </form>
     @endauth
-    
 </nav>
