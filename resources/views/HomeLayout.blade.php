@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/StyleDonations.css') }}">
     <link rel="stylesheet" href="{{ asset('css/OpenModal.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/Logo_white.svg') }}">
     <script type="text/javascript"
         src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}">
