@@ -1,349 +1,343 @@
- :root {
-            --sidebar-purple: #6750A4;
-            --light-purple: #EADDFF;
-            --background-color: #F7F2FA;
-            --text-color: #1C1B1F;
-            --card-bg-color: #FFFFFF;
-            --section-title-color: #333;
-            --green-tag-bg: #4CAF50;
-            --red-tag-bg: #D32F2F;
-        }
+:root {
+    --sidebar-purple: #6750A4;
+    --light-purple: #EADDFF;
+    --background-color: #F7F2FA;
+    --text-color: #1C1B1F;
+    --card-bg-color: #FFFFFF;
+    --section-title-color: #333;
+    --green-tag-bg: #4CAF50;
+    --red-tag-bg: #D32F2F;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
 
-        .sidebar {
-            width: 64px;
-            background-color: var(--sidebar-purple);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-            flex-shrink: 0;
-        }
+.sidebar {
+    width: 64px;
+    background-color: var(--sidebar-purple);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    flex-shrink: 0;
+}
 
-        .sidebar-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: background-color 0.3s;
-        }
+.sidebar-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
 
-        .sidebar-icon svg {
-            color: white;
-            width: 20px;
-            height: 20px;
-        }
+.sidebar-icon svg {
+    color: white;
+    width: 20px;
+    height: 20px;
+}
 
-        .sidebar-icon img {
-            width: 80%;
-            object-fit: cover;
-        }
+.sidebar-icon.active {
+    background-color: var(--light-purple);
+}
 
-        .sidebar-icon.active {
-            background-color: var(--light-purple);
-        }
+.sidebar-icon.active svg {
+    color: var(--sidebar-purple);
+}
 
-        .sidebar-icon.active svg {
-            color: var(--sidebar-purple);
-        }
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 0 32px;
+}
 
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 0 32px;
-        }
+.header {
+    padding: 24px 0;
+    border-bottom: 1px solid #DDD;
+    flex-shrink: 0;
+    margin-bottom: 24px;
+}
 
-        .header {
-            padding: 24px 0;
-            border-bottom: 1px solid #DDD;
-            flex-shrink: 0;
-            margin-bottom: 24px;
-        }
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--sidebar-purple);
+}
 
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--sidebar-purple);
-        }
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+.section-header h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--sidebar-purple);
+}
 
-        .section-header h2 {
-            margin: 0;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--sidebar-purple);
-        }
+.search-filter-container {
+    display: flex;
+    gap: 10px;
+    position: relative;
+}
 
-        .search-filter-container {
-            display: flex;
-            gap: 10px;
-            position: relative;
-        }
+.search-filter-container input {
+    padding: 8px 12px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 200px;
+}
 
-        .search-filter-container input {
-            padding: 8px 12px;
-            border: 1px solid #DDD;
-            border-radius: 8px;
-            font-size: 14px;
-            width: 200px;
-        }
+.search-filter-container .filter-button {
+    padding: 8px 12px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #555;
+}
 
-        .search-filter-container .filter-button {
-            padding: 8px 12px;
-            border: 1px solid #DDD;
-            border-radius: 8px;
-            background-color: white;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #555;
-        }
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    width: 250px;
+    z-index: 10;
+    border: 1px solid #EEE;
+}
 
-        .filter-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 5px);
-            right: 0;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            padding: 20px;
-            width: 250px;
-            z-index: 10;
-            border: 1px solid #EEE;
-        }
+.filter-dropdown.show {
+    display: block;
+}
 
-        .filter-dropdown.show {
-            display: block;
-        }
+.filter-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
 
-        .filter-option {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
+.filter-option label {
+    margin-left: 10px;
+    font-size: 14px;
+}
 
-        .filter-option label {
-            margin-left: 10px;
-            font-size: 14px;
-        }
+.filter-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--sidebar-purple);
+}
 
-        .filter-option input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--sidebar-purple);
-        }
+.category-select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #DDD;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    color: #999;
+    cursor: not-allowed;
+}
 
-        .category-select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #DDD;
-            margin-top: -5px;
-            margin-bottom: 15px;
-            background-color: #f9f9f9;
-            color: #999;
-            cursor: not-allowed;
-        }
+.category-select:not(:disabled) {
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+}
 
-        .category-select:not(:disabled) {
-            background-color: white;
-            color: var(--text-color);
-            cursor: pointer;
-        }
+.apply-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: var(--sidebar-purple);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
 
-        .apply-btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            background-color: var(--sidebar-purple);
-            color: white;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+.popular-carousel {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+}
 
-        .popular-carousel {
-            background-image: url('https://www.un.org/sites/un2.un.org/files/styles/large-article-image-style-16-9/public/field/image/un0209625.jpg?c=de5ed507703a788e0926bdeecedc77b5');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 40px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 250px;
-        }
+.popular-carousel .raised-tag {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: var(--green-tag-bg);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
 
-        .popular-carousel .raised-tag {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: var(--green-tag-bg);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
+.unicef-logo {
+    width: 200px;
+    margin-bottom: 20px;
+}
 
-        .unicef-logo {
-            width: 200px;
-            margin-bottom: 20px;
-        }
+.unicef-logo img {
+    width: 100%;
+    height: auto;
+    filter: brightness(0) invert(1);
+}
 
-        .unicef-logo img {
-            width: 100%;
-            height: auto;
-            filter: brightness(0) invert(1);
-        }
+.carousel-actions {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
 
-        .carousel-actions {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-        }
+.carousel-actions button {
+    padding: 10px 24px;
+    border-radius: 20px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        .carousel-actions button {
-            padding: 10px 24px;
-            border-radius: 20px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+.carousel-actions .view-btn {
+    background-color: white;
+    color: var(--text-color);
+}
 
-        .carousel-actions .view-btn {
-            background-color: white;
-            color: var(--text-color);
-        }
+.carousel-actions .donate-btn {
+    background-color: var(--sidebar-purple);
+    color: white;
+}
 
-        .carousel-actions .donate-btn {
-            background-color: var(--sidebar-purple);
-            color: white;
-        }
+.carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
 
-        .carousel-dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-        }
+.carousel-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
 
-        .carousel-dots .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-        }
+.carousel-dots .dot.active {
+    background-color: white;
+}
 
-        .carousel-dots .dot.active {
-            background-color: white;
-        }
+.donations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
 
-        .donations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
+.donation-card {
+    background-color: var(--card-bg-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
 
-        .donation-card {
-            background-color: var(--card-bg-color);
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+.donation-card-image {
+    height: 150px;
+    background-color: #E0E0E0;
+    position: relative;
+}
 
-        .donation-card-image {
-            height: 150px;
-            background-color: #E0E0E0;
-            position: relative;
-        }
+.donation-card-image .raised-tag {
+    position: absolute;
+    top: 12px;
+    left: -5px;
+    color: white;
+    padding: 5px 12px 5px 18px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
 
-        .donation-card-image .raised-tag {
-            position: absolute;
-            top: 12px;
-            left: -5px;
-            color: white;
-            padding: 5px 12px 5px 18px;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;
-            font-size: 12px;
-            font-weight: 600;
-        }
+.donation-card-image .raised-tag.green {
+    background-color: var(--green-tag-bg);
+}
 
-        .donation-card-image .raised-tag.green {
-            background-color: var(--green-tag-bg);
-        }
+.donation-card-image .raised-tag.red {
+    background-color: var(--red-tag-bg);
+}
 
-        .donation-card-image .raised-tag.red {
-            background-color: var(--red-tag-bg);
-        }
+.donation-card-content {
+    padding: 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-        .donation-card-content {
-            padding: 16px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
+.donation-card-content h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
 
-        .donation-card-content h3 {
-            margin: 0 0 8px;
-            font-size: 16px;
-            font-weight: 600;
-        }
+.donation-card-content p {
+    margin: 0 0 16px;
+    font-size: 14px;
+    color: #666;
+    flex-grow: 1;
+}
 
-        .donation-card-content p {
-            margin: 0 0 16px;
-            font-size: 14px;
-            color: #666;
-            flex-grow: 1;
-        }
-
-        .donation-card-content .view-btn {
-            align-self: flex-end;
-            background-color: white;
-            color: var(--text-color);
-            border: 1px solid #DDD;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 500;
-            cursor: pointer;
-        }
+.donation-card-content .view-btn {
+    align-self: flex-end;
+    background-color: white;
+    color: var(--text-color);
+    border: 1px solid #DDD;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}

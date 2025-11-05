@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name'); // donation name
             $table->bigInteger('target_amount'); // donation target (ex: 1000000)
+            $table->bigInteger('amount_raised')->nullable();
             $table->text('description'); // donation description
             $table->string('category'); // category (humanity, environment, etc)
             $table->string('cover_image')->nullable(); // cover image path
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-
             // membuat relasi ke tabel users
             $table->foreignId('creator_id')->constrained('users')->onDelete('cascade');
 

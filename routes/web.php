@@ -1,18 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\CreateDonationController;
 use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\DonationsController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\MidtransController;
+use App\Livewire\Donations;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
-//temporary root page
-Route::get('/', function () {
-    return view('landingpage');
-});
+Route::get('/', Donations::class)->name('Donation');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('adminDonation');
@@ -45,4 +45,5 @@ Route::get('/my-donation', [CreateDonationController::class, 'index'])->name('my
 Route::get('/create-donation', [CreateDonationController::class, 'show'])->name('createDonation');
 Route::post('/create-donation', [CreateDonationController::class, 'store'])->name('addDonation');
 
-Route::get('/donations', [DonationsController::class, 'index'])->name('Donations');
+Route::post('/midtrans-create', [MidtransController::class, 'create'])->name('midtrans.create');
+Route::post('/midtrans/callback', [MidtransController::class, 'callback'])->withoutMiddleware([VerifyCsrfToken::class]);;
