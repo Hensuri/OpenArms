@@ -69,6 +69,31 @@
      background-color: rgba(255, 255, 255, 0.2);
  }
 
+ .sidebar form {
+    margin-top: auto;
+    margin-bottom: 10px;
+    border-top: 1.5px solid white;
+    display: flex;
+    justify-content: center;   
+}
+
+.sidebar-icon-button{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--sidebar-purple);
+    cursor: pointer;
+    align-items: flex-end;
+}
+
+.sidebar-icon-button svg {
+     color: white;
+     width: 20px;
+     height: 20px;
+ }
+
+
  .main-content {
      flex-grow: 1;
      display: flex;

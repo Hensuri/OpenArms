@@ -8,15 +8,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/AdminDashboard.css">
+    <link rel="stylesheet" href="{{ asset('css/AdminDashboard.css') }}">
 </head>
 
 <body>
-
     <nav class="sidebar">
-        <div class="sidebar-icon">
-            <img src="/assets/images/Logo_white.svg" alt="Site Logo">
-        </div>
+        <a href="{{ route('Donation') }}">
+            <div class="sidebar-icon">
+                <img src="/assets/images/Logo_white.svg" alt="Site Logo">
+            </div>
+        </a>
 
         <div class="sidebar-icon active">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
