@@ -71,7 +71,7 @@ class MidtransController extends Controller
             ];
         } catch (\Exception $e) {
             
-            // Log::error('Midtrans Error: ' . $e->getMessage());
+            Log::error('Midtrans Error: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

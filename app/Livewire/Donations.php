@@ -9,6 +9,7 @@ use App\Http\Controllers\MidtransController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\On;
 
 class Donations extends Component
 {
@@ -18,6 +19,7 @@ class Donations extends Component
     public $donationAmount;
     public $isAnonymous = false;
     public $selectedDonationId = null;
+    public $transactions;
 
     public function getDonationsByCategoryProperty()
     {
@@ -28,13 +30,18 @@ class Donations extends Component
 
     public function openDonation($id)
     {
-        $this->selectedDonation = Donation::find($id);
+        $this->selectedDonation = Donation::with('transactionLogs.user')->find($id);
+        $this->transactions = $this->selectedDonation->transactionLogs()
+        ->latest()
+        ->take(10)
+        ->get();
         $this->showModal = true;
     }
 
     public function closeModal()
     {
         $this->showModal = false;
+        $this->showDonateForm = false;
     }
 
     public function openDonateForm()
@@ -68,14 +75,22 @@ class Donations extends Component
         $midtransController = new MidtransController;
         $response = $midtransController->create($request);
 
-        log::info($response); 
-
         if (!empty($response['snap_token'])) {
-            $this->dispatch('openSnap', snap_token: $response['snap_token']);
+            $this->dispatch('openSnap', snap_token: $response['snap_token'], donation_id: $this->selectedDonationId);
         }
         
         $this->reset(['donationAmount', 'isAnonymous', 'showDonateForm']);
         session()->flash('success', 'Donation submitted successfully!');
+    }
+
+    #[On('refreshDonation')]
+    public function refreshDonation($id)
+    {
+        $this->selectedDonation = Donation::with('transactionLogs.user')->find($id);
+        $this->transactions = $this->selectedDonation->transactionLogs()
+        ->latest()
+        ->take(10)
+        ->get();
     }
 
     public function render()

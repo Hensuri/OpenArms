@@ -81,27 +81,31 @@
         </script>
 
         <script type="text/javascript">
-        document.addEventListener('livewire:init', () => {
-            Livewire.on('openSnap', data => {
-                console.log('Snap token diterima:', data.snap_token);
-
-                window.snap.pay(data.snap_token, {
-                    onSuccess: function(result){
-                        console.log('Success', result);
-                    },
-                    onPending: function(result){
-                        console.log('Pending', result);
-                    },
-                    onError: function(result){
-                        console.error('Error', result);
-                    },
-                    onClose: function(){
-                        console.log('Popup closed');
-                    }
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('openSnap', data => {
+                    console.log('Snap token diterima:', data.snap_token);
+                    const donationId = data.donation_id; 
+                    window.snap.pay(data.snap_token, {
+                        onSuccess: function(result){
+                            console.log('Success', result);
+                            Livewire.dispatch('refreshDonation', { id: donationId });
+                        },
+                        onPending: function(result){
+                            console.log('Pending', result);
+                            Livewire.dispatch('refreshDonation', { id: donationId });
+                        },
+                        onError: function(result){
+                            console.error('Error', result);
+                            Livewire.dispatch('refreshDonation', { id: donationId });
+                        },
+                        onClose: function(){
+                            console.log('Popup closed');
+                            Livewire.dispatch('refreshDonation', { id: donationId });
+                        }
+                    });
                 });
             });
-        });
-    </script>
+        </script>
 
 </body>
 

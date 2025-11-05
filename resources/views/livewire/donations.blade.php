@@ -35,11 +35,11 @@
             <div class="donation-modal">
                 <button class="close-btn" wire:click="closeModal">✕</button>
 
-                <div class="modal-header">
+                <div class="modal-header" wire:click="closeDonateForm">
                     <img src="{{ asset('/storage/'. $selectedDonation->cover_image) ?? asset('images/default.jpg') }}" alt="{{ $selectedDonation->name }}">
                 </div>
 
-                <div class="modal-body">
+                <div class="modal-body" wire:click="closeDonateForm">
                     <h2>{{ $selectedDonation->name }}</h2>
 
                     <div class="category-tag">
@@ -59,36 +59,51 @@
 
                     <div class="progress-percent">{{ number_format($selectedDonation->raised_percentage, 0) }}% to goal</div>
 
-                    <button class="donate-btn" wire:click="openDonateForm">Donate</button>
-                </div>
-            </div>
-        </div>
-    @endif
+                    <div class="transaction-history">
+                        <h3>Recent Donations</h3>
 
-    @if ($showDonateForm)
-        <div class="modal-overlay" wire:click.self="closeDonateForm">
-            <div class="donation-form-modal">
-                <button class="close-btn" wire:click="closeDonateForm">✕</button>
-
-                <h2>Donate to {{ $selectedDonation->name }}</h2>
-
-                <form wire:submit.prevent="submitDonation" class="donation-form">
-                    <label for="donationAmount">Donation Amount (IDR):</label>
-                    <input type="number" id="donationAmount" wire:model="donationAmount" placeholder="Enter amount">
-
-                    @error('donationAmount') 
-                        <span class="error">{{ $message }}</span> 
-                    @enderror
-
-                    <div class="checkbox">
-                        <input type="checkbox" id="isAnonymous" wire:model="isAnonymous">
-                        <label for="isAnonymous">Donate anonymously</label>
+                        @if ($transactions->isEmpty())
+                            <p>No donations yet.</p>
+                        @else
+                            <ul>
+                                @foreach ($transactions as $trx)
+                                    <li class="transaction-item">
+                                        <strong>
+                                            {{ $trx->is_anon ? 'Orang Baik' : ($trx->user->username ?? 'Orang Baik') }}
+                                        </strong>
+                                        donated 
+                                        <span>IDR {{ number_format($trx->gross_amount, 0, ',', '.') }}</span>
+                                        <small>on {{ $trx->created_at->format('d M Y, H:i') }}</small>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
+                    <div class="donation-form" wire:click.stop>
+                        @unless($showDonateForm)
+                            <button class="donate-btn" wire:click="openDonateForm">Donate</button>
+                        @endunless
 
-                    <button type="submit" class="submit-btn">Confirm Donation</button>
-                </form>
+                        @if ($showDonateForm)
+                            <form wire:submit.prevent="submitDonation" class="donation-input">
+                                <label for="donationAmount">Donation Amount (IDR):</label>
+                                <input type="number" id="donationAmount" wire:model="donationAmount" placeholder="Enter amount">
+                                
+                                @auth
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="isAnonymous" wire:model="isAnonymous">
+                                        <label for="isAnonymous">Donate anonymously</label>
+                                    </div>
+                                @endauth
+                                
+
+                                <button type="submit" class="donate-btn">Confirm Donation</button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+                
             </div>
         </div>
     @endif
-
 </div>
