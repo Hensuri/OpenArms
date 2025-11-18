@@ -131,76 +131,53 @@
                 </table>
             </div>
             <div class="detailed-view" id="detailedView" style="display:none;">
-            <h2>Detailed View</h2>
-            <div class="detail-card">
-                <div class="image-wrapper">
-                    <img id="detailImage" src="https://via.placeholder.com/200x150/d7d7d7/000000?text=Banner" alt="Donation Banner">
-                </div>
-                <div class="info">
-                    <div>
-                        <div class="detail-item">
-                            <strong>Donation Name :</strong>
-                            <span id="detailName">-</span>
-                        </div>
-                        <div class="detail-item">
-                            <strong>Donation Target :</strong>
-                            <span id="detailTarget">-</span>
-                        </div>
-                        <div class="detail-item">
-                            <strong>Description :</strong>
-                            <span id="detailDescription">-</span>
-                        </div>
-                        <div class="detail-item">
-                            <strong>Category :</strong>
-                            <span id="detailCategory">-</span>
-                        </div>
+                <h2>Detailed View</h2>
+                <div class="detail-card">
+                    <div class="image-wrapper">
+                        <img id="detailImage" src="https://via.placeholder.com/200x150/d7d7d7/000000?text=Banner" alt="Donation Banner">
                     </div>
+                    <div class="info">
+                        <div>
+                            <div class="detail-item">
+                                <strong>Donation Name :</strong>
+                                <span id="detailName">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Donation Target :</strong>
+                                <span id="detailTarget">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Description :</strong>
+                                <span id="detailDescription">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Category :</strong>
+                                <span id="detailCategory">-</span>
+                            </div>
+                        </div>
 
-                    <div class="detail-actions">
-                        <form id="approveForm" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" class="approve-button">Approve</button>
-                        </form>
+                        <div class="detail-actions">
+                            <form id="approveForm" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="approve-button">Approve</button>
+                            </form>
 
-                        <form id="rejectForm" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" class="reject-button">Reject</button>
-                        </form>
+                            <form id="rejectForm" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="reject-button">Reject</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
-       
-
-        
-
     </div>
 
-
-    
     <script>
         function toggleDropdown() {
             document.getElementById("filterDropdown").classList.toggle("show");
         }
 
-        window.onclick = function (event) {
-            if (!event.target.matches('.filter-button, .filter-button *')) {
-                var dropdowns = document.getElementsByClassName("filter-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
- 
-        function toggleDropdown() {
-            document.getElementById("filterDropdown").classList.toggle("show");
-        }
-
-        // Hide dropdown if click outside
         window.onclick = function (event) {
             if (!event.target.matches('.filter-button, .filter-button *')) {
                 var dropdowns = document.getElementsByClassName("filter-dropdown");
