@@ -8,13 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/CreateDonations.css') }}">\
+    <link rel="stylesheet" href="{{ asset('css/CreateDonations.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/Logo_white.svg') }}">
 </head>
 
 <body>
 
-    <x-sidebar />
+    <x-sidebar/>
 
     <div class="main-content">
         <header class="header">
@@ -67,6 +67,16 @@
                     </form>
                 </div>
             </div>
+            {{-- @if ($errors->any())
+                <div class="flash-message error">
+                    <strong>Waduh!</strong> Ada masalah dengan input Anda:<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif --}}
         </main>
     </div>
 
