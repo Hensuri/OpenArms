@@ -110,7 +110,8 @@
                                 data-category="{{ $donation->category }}"
                                 data-target="{{ $donation->target_amount }}"
                                 data-status="{{ $donation->status }}"
-                                data-image="{{ asset('storage/' . $donation->cover_image) }}">
+                                data-image="{{ asset('storage/' . $donation->cover_image) }}"
+                                data-status="{{ $donation->status }}">
                                 
                                 <td>{{ $donation->created_at->format('d/m/Y') }}</td>
                                 <td>{{ $donation->id }}</td>
@@ -157,14 +158,18 @@
                         </div>
 
                         <div class="detail-actions">
+                            <span id="detailedStatus" class="detailed-status"></span>
+                        </div>
+
+                        <div class="detail-actions">
                             <form id="approveForm" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="approve-button">Approve</button>
+                                <button type="submit" id="approveButton" class="approve-button">Approve</button>
                             </form>
 
                             <form id="rejectForm" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="reject-button">Reject</button>
+                                <button type="submit" id="rejectButton" class="reject-button">Reject</button>
                             </form>
                         </div>
                     </div>
@@ -203,28 +208,56 @@
         const approveForm = document.getElementById('approveForm');
         const rejectForm = document.getElementById('rejectForm');
 
+        const approveButton = document.getElementById('approveButton');
+        const rejectButton = document.getElementById('rejectButton');
+
+        const statusSpan = document.getElementById('detailedStatus')
+
         rows.forEach(row => {
             row.addEventListener('click', () => {
+                const status = row.dataset.status;
                 const id = row.dataset.id;
-                const name = row.dataset.name;
-                const target = row.dataset.target;
-                const description = row.dataset.description;
-                const category = row.dataset.category;
-                const image = row.dataset.image;
+                    const name = row.dataset.name;
+                    const target = row.dataset.target;
+                    const description = row.dataset.description;
+                    const category = row.dataset.category;
+                    const image = row.dataset.image;
 
-                // Update detail view content
-                detailName.textContent = name;
-                detailTarget.textContent = 'Rp ' + new Intl.NumberFormat('id-ID').format(target);
-                detailDescription.textContent = description;
-                detailCategory.textContent = category;
-                detailImage.src = image || 'https://via.placeholder.com/200x150/d7d7d7/000000?text=No+Image';
+                    // Update detail view content
+                    detailName.textContent = name;
+                    detailTarget.textContent = 'Rp ' + new Intl.NumberFormat('id-ID').format(target);
+                    detailDescription.textContent = description;
+                    detailCategory.textContent = category;
+                    detailImage.src = image || 'https://via.placeholder.com/200x150/d7d7d7/000000?text=No+Image';
 
-                // Update form actions dynamically
-                approveForm.action = `/admin/donation/${id}/approve`;
-                rejectForm.action = `/admin/donation/${id}/reject`;
+                    // Show detailed view
+                    detailView.style.display = 'block';
+                if(status === 'pending'){
 
-                // Show detailed view
-                detailView.style.display = 'block';
+                    // Update form actions dynamically
+                    approveForm.action = `/admin/donation/${id}/approve`;
+                    rejectForm.action = `/admin/donation/${id}/reject`;
+
+                    approveButton.style.display = 'block';
+                    rejectButton.style.display = 'block';
+
+                    statusSpan.style.display = 'none';
+                }
+                else{
+                    approveButton.style.display = 'none';
+                    rejectButton.style.display = 'none';
+                    statusSpan.style.display = 'block';
+                    if(status === 'approved'){
+                        // console.log("Approvedd")
+                        statusSpan.className = "detailed-status approved";
+                        statusSpan.textContent = "Approved";
+                    }
+                    else{
+                        // statusSpan.classList.remove('approved');
+                        statusSpan.className = "detailed-status rejected";
+                        statusSpan.textContent = "Rejected";
+                    }
+                }
             });
         });
         

@@ -143,6 +143,7 @@ body {
     flex-grow: 1;
     overflow-y: auto;
     margin-bottom: 5px;
+    padding-left: 10px;
 }
 
 .header {
@@ -538,4 +539,28 @@ body {
 
 .reject-button:hover {
     background-color: #e53935;
+}
+
+.detailed-status {
+    margin-right: 30px;
+    padding: 6px 30px;
+    border-radius: 16px;
+    font-size: 25px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.detailed-status.in-checking {
+    background-color: var(--status-in-checking-bg);
+    color: var(--status-in-checking-text);
+}
+
+.detailed-status.approved {
+    background-color: var(--status-approved-bg);
+    color: var(--status-approved-text);
+}
+
+.detailed-status.rejected {
+    background-color: var(--status-rejected-bg);
+    color: var(--status-rejected-text);
 }
