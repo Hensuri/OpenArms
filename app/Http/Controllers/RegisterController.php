@@ -45,11 +45,14 @@ class RegisterController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
+        $profile_picture = 'profile_pictures/default.png';
         
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'profile_picture' => $profile_picture,
         ]);
 
         return redirect('/login')

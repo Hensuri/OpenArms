@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -15,6 +17,20 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $key = 'send-message:' . $request->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            // Ambil sisa waktu (detik) kapan boleh coba lagi
+            $seconds = RateLimiter::availableIn($key);
+            Log::info("RATE LIMITED");
+            return back()->withErrors([
+                'Please wait for ' . $seconds . " second(s) to try again",
+            ])->withInput($request->except('password'));
+        }
+        Log::info($key);
+        // 3. Jika lolos, catat "hit" (percobaan bertambah)
+        RateLimiter::hit($key);
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -35,7 +51,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'The provided credentials do not match our records.',
         ])->withInput($request->except('password'));
     }
 

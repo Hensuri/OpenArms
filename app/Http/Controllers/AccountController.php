@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Intervention\Image\Laravel\Facades\Image;
 
 class AccountController extends Controller
 {
@@ -18,6 +20,7 @@ class AccountController extends Controller
     public function update(Request $request)
     {
         $user = $request->user();
+
         if ($request->hasFile('profile_picture')) {
             $f = $request->file('profile_picture');
             Log::info('Profile picture upload attempt', [
@@ -53,7 +56,10 @@ class AccountController extends Controller
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
             try {
-                $path = $file->store('profile_pictures', 'public');
+                $filename = Str::uuid() . '.webp';
+                $img = Image::read($file)->toWebp(75);
+                Storage::disk('public')->put('profile_pictures/' . $filename, (string) $img);
+                $path = 'profile_pictures/' . $filename;
                 
                 Log::info('Profile picture stored', [
                     'path' => $path,

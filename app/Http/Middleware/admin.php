@@ -6,20 +6,15 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class admin
 {
 
     public function handle(Request $request, Closure $next): Response
     {
-        // Pastikan user sudah login
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Please login first.');
-        }
-
-        // Cek apakah user admin
-        if (!Auth::user()->is_admin) {
-            abort(403, 'Unauthorized access — only admin allowed.');
+        if (!Auth::check() || !Auth::user()->is_admin) {
+            abort(404);
         }
 
         return $next($request);

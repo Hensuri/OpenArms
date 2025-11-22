@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Donation;
-use App\Models\User; 
+use App\Models\User;
+use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Str;
 
 class CreateDonationController extends Controller
 {
@@ -35,15 +38,22 @@ class CreateDonationController extends Controller
             'donation-target' => 'required|numeric',
             'donation-description' => 'required|string',
             'category' => 'required|string',
-            'cover_image' => 'nullable|mimes:jpg,jpeg,png|max:10240',
+            'cover_image' => 'nullable|mimes:jpg,jpeg,png|max:10240|image',
         ], [
             'cover_image.mimes' => 'Cover image hanya boleh berupa file PNG, JPG, atau JPEG',
             'cover_image.max' => 'Ukuran file maksimal 10MB.',
         ]);
 
         $path = null;
+
         if ($request->hasFile('cover_image')) {
-            $path = $request->file('cover_image')->store('covers', 'public');
+            $filename = Str::uuid() . '.webp';
+
+            $img = Image::read($request->file('cover_image'))->toWebp(75);
+
+            Storage::disk('public')->put('covers/' . $filename, (string) $img);
+
+            $path = 'covers/' . $filename;
         }
 
         Donation::create([

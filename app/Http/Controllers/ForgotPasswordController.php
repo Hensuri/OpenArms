@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 
 class ForgotPasswordController extends Controller
@@ -29,10 +30,20 @@ class ForgotPasswordController extends Controller
                     ->orWhere('username', $identifier) // jika pakai username
                     ->first();
 
-        if (! $user) {
+        if (!$user) {
             return redirect()->route('password.enter-code', ['identifier' => $identifier]);
         }
-        
+
+        $this->GenerateCodeAndSendCode($user->email, $user->username);
+
+        session(['identifier' => $user->email]);
+
+        return redirect()->route('password.enter-code');
+    }
+
+    public function GenerateCodeAndSendCode($email, $username)
+    {
+        Log::info("Generating");
         $code = random_int(100000, 999999);
         $codeString = (string) $code;
 
@@ -40,20 +51,17 @@ class ForgotPasswordController extends Controller
         $expiresAt = Carbon::now()->addMinutes(15);
 
         PasswordReset::updateOrCreate(
-            ['email' => $user->email, 'used' => false],
+            ['email' => $email, 'used' => false],
             [
                 'code_hash' => $codeHash,
                 'reset_token' => null,
                 'expires_at' => $expiresAt,
                 'used' => false,
+                'attempt' => 0,
             ]
         );
-
-        Mail::to($identifier)->queue(new sendCode($user->username, $code));
-
-        session(['identifier' => $user->email]);
-
-        return redirect()->route('password.enter-code');
+        
+        Mail::to($email)->queue(new sendCode($username, $code));
     }
     
     public function showEnterCode()
@@ -76,7 +84,7 @@ class ForgotPasswordController extends Controller
             ->orderBy('created_at', 'desc')
             ->first();
 
-        if (! $reset) {
+        if(!$reset) {
             return back()->with('error', 'Kode tidak valid atau sudah dipakai.');
         }
 
@@ -85,7 +93,18 @@ class ForgotPasswordController extends Controller
             return back()->with('error', 'Kode sudah kadaluarsa. Silakan minta kode baru.');
         }
 
-        if (! Hash::check($code, $reset->code_hash)) {
+        if (!Hash::check($code, $reset->code_hash)) {
+            //here
+            Log::info("salah code");
+            $reset->attempt++;
+            $reset->save();
+            
+            if($reset->attempt >= 3)
+            {
+                $user = User::where('email', $email)
+                    ->first();
+                $this->GenerateCodeAndSendCode($user->email, $user->username);
+            }
             return back()->with('error', 'Kode salah.');
         }
 

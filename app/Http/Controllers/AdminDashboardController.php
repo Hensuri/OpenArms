@@ -27,6 +27,11 @@ class AdminDashboardController extends Controller
     public function approve($id)
     {
         $donation = Donation::findOrFail($id);
+        
+        if($donation->status != 'pending'){
+            return redirect()->back()->withErrors(['status' => 'The donation has already reviewed']);
+        }
+
         $donation->status = 'approved';
         $donation->save();
 

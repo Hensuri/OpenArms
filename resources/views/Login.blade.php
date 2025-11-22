@@ -10,7 +10,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@300&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/StyleLogin.css">
+    <link rel="stylesheet" href="{{ asset('css/StyleLogin.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/Logo_white.svg') }}">
 </head>
 
 <body>
@@ -31,7 +32,13 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password">
                 @if ($errors->any())
-                    <div class="error-message">The provided credentials do not match our records.</div>
+                    <div class="error-message">
+                        
+                        @foreach ($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                        
+                    </div>
                 @endif
             </div>
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('email')->index();
             $table->string('code_hash'); // hash dari 6-digit code
             $table->string('reset_token')->nullable()->index(); // uuid untuk akses ke halaman reset
+            $table->integer('attempt')->default(0);
             $table->timestamp('expires_at');
             $table->boolean('used')->default(false);
             $table->timestamps();

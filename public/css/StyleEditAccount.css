@@ -63,6 +63,31 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.sidebar form {
+    margin-top: auto;
+    margin-bottom: 10px;
+    border-top: 1.5px solid white;
+    display: flex;
+    justify-content: center;   
+}
+
+.sidebar-icon-button{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--sidebar-purple);
+    cursor: pointer;
+    align-items: flex-end;
+}
+
+.sidebar-icon-button svg {
+     color: white;
+     width: 20px;
+     height: 20px;
+ }
+
+
 /* Main Content */
 .main-content {
     flex-grow: 1;
@@ -151,7 +176,27 @@ body {
     background-color: #58458f;
 }
 
+.logout-form {
+    position: absolute;
+    bottom: 40px;
+    right: 50px;
+}
 
+.logout-button {
+    background-color: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #58458f;
+}
 
 .error-message, .alert-danger {
     color: #b71c1c; /* red */
