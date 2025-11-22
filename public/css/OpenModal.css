@@ -159,17 +159,17 @@
 }
 
 .transaction-item strong {
-    color: #333;
+    color: #FCE205;
 }
 
 .transaction-item span {
-    color: #5c1a80;
+    color: #82C8E5;
     font-weight: bold;
 }
 
 .transaction-item small {
     display: block;
-    color: #777;
+    color: white;
 }
 
 /* Animations */

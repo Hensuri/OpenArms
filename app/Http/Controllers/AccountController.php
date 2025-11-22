@@ -58,8 +58,8 @@ class AccountController extends Controller
             try {
                 $filename = Str::uuid() . '.webp';
                 $img = Image::read($file)->toWebp(75);
-                Storage::disk('public')->put('covers/' . $filename, (string) $img);
-                $path = 'covers/' . $filename;
+                Storage::disk('public')->put('profile_pictures/' . $filename, (string) $img);
+                $path = 'profile_pictures/' . $filename;
                 
                 Log::info('Profile picture stored', [
                     'path' => $path,
