@@ -32,7 +32,13 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password">
                 @if ($errors->any())
-                    <div class="error-message">The provided credentials do not match our records.</div>
+                    <div class="error-message">
+                        
+                        @foreach ($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                        
+                    </div>
                 @endif
             </div>
 

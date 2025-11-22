@@ -49,4 +49,4 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/midtrans-create', [MidtransController::class, 'create'])->name('midtrans.create');
-Route::post('/midtrans/callback', [MidtransController::class, 'callback'])->withoutMiddleware([VerifyCsrfToken::class]);;
+Route::post('/midtrans/callback', [MidtransController::class, 'callback'])->withoutMiddleware([VerifyCsrfToken::class]);

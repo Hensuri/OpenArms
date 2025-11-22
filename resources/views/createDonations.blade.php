@@ -67,16 +67,6 @@
                     </form>
                 </div>
             </div>
-            {{-- @if ($errors->any())
-                <div class="flash-message error">
-                    <strong>Waduh!</strong> Ada masalah dengan input Anda:<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif --}}
         </main>
     </div>
 

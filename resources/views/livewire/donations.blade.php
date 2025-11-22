@@ -95,10 +95,13 @@
                                         <label for="isAnonymous">Donate anonymously</label>
                                     </div>
                                 @endauth
-                                
-
+                                                                
+                                @error('rate_limit')
+                                    <div class="error-message">{{ $message }}</div>
+                                @enderror
                                 <button type="submit" class="donate-btn">Confirm Donation</button>
                             </form>
+                            
                         @endif
                     </div>
                 </div>

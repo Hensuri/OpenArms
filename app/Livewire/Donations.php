@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\RateLimiter;
 
 class Donations extends Component
 {
@@ -60,6 +61,21 @@ class Donations extends Component
 
     public function submitDonation()
     {
+        $key = 'send-message:' . request()->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 2)) {
+            // Ambil sisa waktu (detik) kapan boleh coba lagi
+
+            $seconds = RateLimiter::availableIn($key);
+            Log::info("RATE LIMITED on payment");
+
+            $this->addError('rate_limit', 'Please wait for ' . $seconds . " second(s) to try again");
+            return;
+        }
+
+        // 3. Jika lolos, catat "hit" (percobaan bertambah)
+        RateLimiter::hit($key);
+
         $this->validate([
             'donationAmount' => 'required|numeric|min:1000',
         ]);
